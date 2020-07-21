@@ -3,6 +3,7 @@ package com.hl.learnmall.contoller;
 
 import com.hl.learnmall.common.api.CommonPage;
 import com.hl.learnmall.common.api.CommonResult;
+import com.hl.learnmall.mbg.modal.PmsAlbum;
 import com.hl.learnmall.mbg.modal.PmsBrand;
 import com.hl.learnmall.service.PmsBrandService;
 import io.swagger.annotations.Api;
@@ -12,9 +13,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,7 +35,7 @@ public class PmsBrandController {
     private static final Logger LOGGER = LoggerFactory.getLogger(PmsBrandController.class);
 
     @ApiOperation("获取所有品牌列表")
-    @RequestMapping(value = "listAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/listAll", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<List<PmsBrand>> getBrandList() {
         return CommonResult.success(brandService.listAllBrand());
@@ -101,4 +104,22 @@ public class PmsBrandController {
     public CommonResult<PmsBrand> brand(@PathVariable("id") Long id) {
         return CommonResult.success(brandService.getBrand(id));
     }
+
+    @ApiOperation("循环插入")
+    @RequestMapping(value = "/Insert", method = RequestMethod.GET)
+    @ResponseBody
+    public void Insert( ) {
+        List<PmsAlbum> list=new ArrayList<>();
+        PmsAlbum p=new PmsAlbum();
+        p.setId(1L);
+        p.setName("1");
+        p.setCoverPic("1");
+        p.setPicCount(1);
+        p.setDescription("1");
+        list.add(p);
+        brandService.Insert(list);
+
+    }
+
+
 }

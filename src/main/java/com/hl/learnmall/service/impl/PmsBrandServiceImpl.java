@@ -2,7 +2,9 @@ package com.hl.learnmall.service.impl;
 
 import com.github.pagehelper.PageHelper;
 
+import com.hl.learnmall.mbg.mapper.PmsAlbumMapper;
 import com.hl.learnmall.mbg.mapper.PmsBrandMapper;
+import com.hl.learnmall.mbg.modal.PmsAlbum;
 import com.hl.learnmall.mbg.modal.PmsBrand;
 import com.hl.learnmall.mbg.modal.PmsBrandExample;
 import com.hl.learnmall.service.PmsBrandService;
@@ -19,6 +21,9 @@ import java.util.List;
 public class PmsBrandServiceImpl implements PmsBrandService {
     @Autowired
     private PmsBrandMapper brandMapper;
+
+    @Autowired
+    private PmsAlbumMapper pmsAlbumMapper;
 
     @Override
     public List<PmsBrand> listAllBrand() {
@@ -50,5 +55,10 @@ public class PmsBrandServiceImpl implements PmsBrandService {
     @Override
     public PmsBrand getBrand(Long id) {
         return brandMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void Insert(List<PmsAlbum> list) {
+        pmsAlbumMapper.myInsert(list);
     }
 }
