@@ -207,10 +207,10 @@
 <!--  <select id="listAll" resultMap="BaseResultMap">
     SELECT *  FROM  pms_product_full_reduction
   </select>-->
-  <select id="listAllTable"  resultType="com.hl.learnmall.mbg.modal.PmsProductLadder">
+  <select id="listAllTable"  parameterType="java.lang.Integer" resultType="com.hl.learnmall.mbg.modal.PmsProductLadder">
     select * from pms_product_ladder limit #{l1},#{l2}
   </select>
   <select id="CountRow" resultType="int">
-    SELECT COUNT (*) from pms_product_ladder
+    SELECT count(*) FROM pms_product_ladder
   </select>
 </mapper>

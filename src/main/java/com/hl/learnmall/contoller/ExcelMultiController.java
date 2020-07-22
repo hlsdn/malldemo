@@ -21,30 +21,38 @@ public class ExcelMultiController {
 
 
 @RequestMapping("/daochu")
-public  void test(HttpServletResponse response){
+public  void test(HttpServletResponse response) throws InterruptedException {
    //先统计行数
    int countRow=multiyExcelSerivice.getRoeNum();
    //创建线程
     ExecutorService service= Executors.newCachedThreadPool();
     CountDownLatch latch=new CountDownLatch(10);
-  for(int i=0;i<10;i++){
-  Runnable runnable=new Runnable() {
+    int num=countRow/10;
+
+  for(int i=0 ;i<10;i++){
+      int d=i;
+      Runnable runnable=new Runnable() {
       @Override
       public void run() {
+               if(d!=9){
+                        List<PmsProductLadder> list=multiyExcelSerivice.listAllTable(d*num,num);
+                    }else{
+                        List<PmsProductLadder> list=multiyExcelSerivice.listAllTable(d*num,countRow-d*num);
+                    }
+                    latch.countDown();
+          }
+      };
+   service.execute(runnable);
+   //导出报表
 
 
-              List<PmsProductLadder> list=multiyExcelSerivice.listAllTable(1,1);
-
-
-
-              latch.countDown();
-
-
-
-
-      }
-  };
   }
+    latch.await();
+    service.shutdown();
+
+
+
+
 
 }
 
