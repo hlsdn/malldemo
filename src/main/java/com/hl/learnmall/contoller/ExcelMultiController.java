@@ -1,5 +1,6 @@
 package com.hl.learnmall.contoller;
 
+import com.hl.learnmall.common.utils.ExcelUtil;
 import com.hl.learnmall.mbg.modal.PmsProductLadder;
 import com.hl.learnmall.service.impl.MultiyExcelSeriviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,7 +20,8 @@ import java.util.concurrent.Executors;
 public class ExcelMultiController {
     @Autowired
     MultiyExcelSeriviceImpl multiyExcelSerivice;
-
+    @Autowired
+    ExcelUtil<PmsProductLadder> util;
 
 @RequestMapping("/daochu")
 public  void test(HttpServletResponse response) throws InterruptedException {
@@ -30,31 +33,23 @@ public  void test(HttpServletResponse response) throws InterruptedException {
     int num=countRow/10;
 
   for(int i=0 ;i<10;i++){
-      int d=i;
-      Runnable runnable=new Runnable() {
-      @Override
-      public void run() {
-               if(d!=9){
-                        List<PmsProductLadder> list=multiyExcelSerivice.listAllTable(d*num,num);
-                    }else{
-                        List<PmsProductLadder> list=multiyExcelSerivice.listAllTable(d*num,countRow-d*num);
-                    }
-                    latch.countDown();
-          }
-      };
-   service.execute(runnable);
-   //导出报表
-
 
   }
     latch.await();
     service.shutdown();
 
-
-
-
-
 }
 
+    @RequestMapping("/daochu1")
+    public  void test1(HttpServletResponse response) throws InterruptedException {
+
+     List<PmsProductLadder> list=multiyExcelSerivice.listAllTable(0,5);
+
+        String title="测试excel导出";
+        String[] headers={"id","product_id","count","discount","price"};
+        String[] Col={"id","productId","count","discount","price"};
+       util.exportExcel(title,headers,Col,list,"",response);
+
+}
 
 }
