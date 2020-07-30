@@ -30,8 +30,8 @@ public class ExcelUtil<T> {
             title = title + ".csv";
             //设置下载弹出框
             response.setContentType("application/csv;charset=gbk");
-            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(title, "UTF-8"));
-        /*    response.setHeader("Content-Disposition", "attachment;filename=" + new String (title.getBytes(), "UTF-8"));*/
+           // response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(title, "UTF-8"));
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(title, "gbk"));
             //新建打印输出对象
             PrintWriter out = response.getWriter();
             StringBuffer headSb = new StringBuffer();
@@ -112,6 +112,7 @@ public class ExcelUtil<T> {
                 }
                 out.write(sb.toString() + "\n");
             }
+            out.write("你好");
         } catch (Exception e) {
              e.toString();
         }

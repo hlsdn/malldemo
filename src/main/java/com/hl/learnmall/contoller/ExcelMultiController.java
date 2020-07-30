@@ -26,17 +26,17 @@ public class ExcelMultiController {
 @RequestMapping("/daochu")
 public  void test(HttpServletResponse response) throws InterruptedException {
    //先统计行数
-   int countRow=multiyExcelSerivice.getRoeNum();
+  // int countRow=multiyExcelSerivice.getRoeNum();
    //创建线程
-    ExecutorService service= Executors.newCachedThreadPool();
-    CountDownLatch latch=new CountDownLatch(10);
-    int num=countRow/10;
+    //ExecutorService service= Executors.newCachedThreadPool();
+   // CountDownLatch latch=new CountDownLatch(10);
+  //  int num=countRow/10;
 
   for(int i=0 ;i<10;i++){
 
   }
-    latch.await();
-    service.shutdown();
+   // latch.await();
+   // service.shutdown();
 
 }
 
