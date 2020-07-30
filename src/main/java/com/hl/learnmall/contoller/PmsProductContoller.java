@@ -68,8 +68,8 @@ public class PmsProductContoller {
         try {
             List<PmsProductLadder>list=pmsProductService.listAllTable();
             //  List  list=pmsProductService.listAllTable();
-            exportExcelUtil.exportExcel("测试文件",headUtils.getPageHeader(),
-                    headUtils.getPageClo(), list,response );
+        //    exportExcelUtil.exportExcel("测试文件",headUtils.getPageHeader(),
+         //           headUtils.getPageClo(), list,response );
            /* util.exportExcel("测试文件",headUtils.getPageHeader(),
                     headUtils.getPageClo(), list,null,response);*/
 

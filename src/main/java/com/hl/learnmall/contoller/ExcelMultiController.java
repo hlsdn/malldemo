@@ -23,32 +23,30 @@ public class ExcelMultiController {
     @Autowired
     ExcelUtil<PmsProductLadder> util;
 
+
 @RequestMapping("/daochu")
 public  void test(HttpServletResponse response) throws InterruptedException {
    //先统计行数
-  // int countRow=multiyExcelSerivice.getRoeNum();
-   //创建线程
-    //ExecutorService service= Executors.newCachedThreadPool();
-   // CountDownLatch latch=new CountDownLatch(10);
-  //  int num=countRow/10;
-
-  for(int i=0 ;i<10;i++){
-
-  }
-   // latch.await();
-   // service.shutdown();
-
-}
-
-    @RequestMapping("/daochu1")
-    public  void test1(HttpServletResponse response) throws InterruptedException {
-
-     List<PmsProductLadder> list=multiyExcelSerivice.listAllTable(0,5);
-
-        String title="测试excel导出";
-        String[] headers={"id","product_id","count","discount","price"};
-        String[] Col={"id","productId","count","discount","price"};
+   int countRow=multiyExcelSerivice.getRoeNum();
+   if(countRow<10000){
+       //如果行数小于阈值则使用csv导出的方式
+       List<PmsProductLadder> list=multiyExcelSerivice.listAllTable(0,countRow);
+       String title="测试excel导出";
+       String[] headers={"id","product_id","count","discount","price"};
+       String[] Col={"id","productId","count","discount","price"};
        util.exportExcel(title,headers,Col,list,"",response);
+   }else{
+
+
+
+   }
+
+
+
+
+
+
+
 
 }
 
